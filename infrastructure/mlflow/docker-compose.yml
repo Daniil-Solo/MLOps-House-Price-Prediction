@@ -1,0 +1,46 @@
+version: '3'
+services:
+  mlflow-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
+      MLFLOW_S3_ENDPOINT_URL: ${SERVER_SCHEMA}://${SERVER_HOST}:${S3_API_PORT}
+    entrypoint: >
+      mlflow server 
+      --backend-store-uri postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@mlflow-db/${POSTGRES_DB} 
+      --default-artifact-root s3://${MLFLOW_BUCKET}/ 
+      -h 0.0.0.0
+    depends_on:
+      - mlflow-db
+
+  mlflow-db:
+    image: 'postgres:14'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - 'mlflow-db-data:/var/lib/postgresql/data'
+
+  pgadmin:
+    image: dpage/pgadmin4:8.4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+
+volumes:
+  mlflow-db-data:
+  pgadmin-data:
