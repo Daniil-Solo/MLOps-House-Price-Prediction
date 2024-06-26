@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - 5000:5000
+    command: poetry run uvicorn src.app:app --host 0.0.0.0 --port 5000
+    env_file:
+      - .env
