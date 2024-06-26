@@ -1,0 +1,52 @@
+stages:
+  download_raw_data:
+    cmd: poetry run python src/data/download_data.py data/raw/data.csv
+    deps:
+    - src/data/download_data.py
+    outs:
+    - data/raw/data.csv
+
+  clean_data:
+    cmd: poetry run python src/features/clean_raw_data.py data/raw/data.csv data/interim/cleaned_data.csv
+    deps:
+      - data/raw/data.csv
+      - src/features/clean_raw_data.py
+    outs:
+      - data/interim/cleaned_data.csv
+
+  download_amenities:
+    cmd: >
+      poetry run python src/features/download_amenities.py -a pub -a cafe -a fast_food -a restaurant data/external/eat.json &&
+      poetry run python src/features/download_amenities.py -a college -a kindergarten -a library -a school -a university data/external/edu.json &&
+      poetry run python src/features/download_amenities.py -a cinema -a fountain -a theatre data/external/culture.json &&
+      poetry run python src/features/download_amenities.py -a clinic -a hospital data/external/health.json
+    deps:
+      - src/features/download_amenities.py
+    outs:
+      - data/external/eat.json
+      - data/external/edu.json
+      - data/external/culture.json
+      - data/external/health.json
+
+  add_coordinates:
+    cmd: poetry run python src/features/add_coordinates.py data/interim/cleaned_data.csv data/external/geo_data.csv
+    deps:
+      - data/interim/cleaned_data.csv
+      - src/features/add_coordinates.py
+    outs:
+      - data/external/geo_data.csv
+
+  finalize_data:
+    cmd: >
+      poetry run python src/features/finalize_data.py data/interim/cleaned_data.csv data/external/geo_data.csv data/processed/data.csv 
+      -af data/external/eat.json -af data/external/culture.json -af data/external/edu.json -af data/external/health.json
+    deps:
+      - data/interim/cleaned_data.csv
+      - data/external/geo_data.csv
+      - data/external/eat.json
+      - data/external/culture.json
+      - data/external/edu.json
+      - data/external/health.json
+      - src/features/finalize_data.py
+    outs:
+      - data/processed/data.csv
