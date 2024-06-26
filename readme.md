@@ -37,3 +37,21 @@ flowchart TD
 
 ![Мониторинг в Grafana](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/grafana-1.png)
 
+## Бэкенд, сервинг модели
+
+- FastAPI, Catboost
+- Загружает актуальную модель из Model Registry
+- Отправляет логи в Loki
+- Отдает метрики для Prometheus
+
+![Swagger документация](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/swagger-1.png)
+
+## Фронтенд
+
+- Vite, React, Maplibre, MUI
+- Предоставляет пользователю интерфейс в виде карты
+- Аналитика распределения квартир
+- Прогноз стоимости на основе характеристик дома и квартиры
+
+![Аналитика конкурентов](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/application-3.png)
+![Прогноз по характеристикам](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/application-5.png)
