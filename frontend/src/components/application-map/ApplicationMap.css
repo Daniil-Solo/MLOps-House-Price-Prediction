@@ -1,0 +1,27 @@
+.map__buttons{
+    width: 59px;
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}
+.map__buttons-2{
+    width: 59px;
+    position: absolute;
+    left: 107px;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}
+.map__house-form{
+    width: 500px;
+    position: absolute;
+    left: 24px;
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}

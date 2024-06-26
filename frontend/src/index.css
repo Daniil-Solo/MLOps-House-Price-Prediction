@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+:root{
+    --green_1: #5FAF2D;
+    --green_2: #CAE4B9;
+    --green_3: #E2F1DA;
+}
+body, html, #root{
+     height: 100%;
+}
