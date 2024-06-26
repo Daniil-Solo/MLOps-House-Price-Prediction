@@ -8,7 +8,7 @@
 
 - Данные версионируются с помощью DVC
 - Для каждого этапа обработки данных создан CLI-скрипт
-- Эксперименты логируются с помощью MLFlow
+- Эксперименты логируются с помощью MLflow
 
 Даг обработки данных
 ```mermaid
@@ -28,3 +28,12 @@ flowchart TD
 ![Бакеты в S3-хранилище](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/minio-1.png)
 ![Эксперименты](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/mlflow-1.png)
 ![Артефакты модели](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/mlflow-3.png)
+
+## Инфраструктура
+
+- Minio (бакеты для DVC и MLflow)
+- MLflow, PostgreSQL, PgAdmin
+- Prometheus, Loki, Grafana
+
+![Мониторинг в Grafana](https://github.com/Daniil-Solo/MLOps-House-Price-Prediction/blob/master/visual/grafana-1.png)
+
